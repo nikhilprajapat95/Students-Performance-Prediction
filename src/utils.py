@@ -34,7 +34,6 @@ def evaluate_models(X_train, y_train, X_test, y_test, models, param):
 
             best_model = gs.best_estimator_
 
-            # ✅ Store trained model
             trained_models[model_name] = best_model
 
             y_test_pred = best_model.predict(X_test)
@@ -44,5 +43,12 @@ def evaluate_models(X_train, y_train, X_test, y_test, models, param):
 
         return report, trained_models
 
+    except Exception as e:
+        raise CustomException(e, sys)
+    
+def load_object(file_path):
+    try:
+        with open(file_path, 'rb') as file_obj:
+            return dill.load(file_obj)
     except Exception as e:
         raise CustomException(e, sys)
